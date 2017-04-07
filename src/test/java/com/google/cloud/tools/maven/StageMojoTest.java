@@ -17,6 +17,8 @@
 package com.google.cloud.tools.maven;
 
 import static org.mockito.Matchers.contains;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +27,8 @@ import com.google.cloud.tools.appengine.api.deploy.AppEngineStandardStaging;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,12 +37,16 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 import java.io.IOException;
 
-@RunWith(MockitoJUnitRunner.class)
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+
+@RunWith(JUnitParamsRunner.class)
 public class StageMojoTest {
 
   @Rule
@@ -61,14 +69,17 @@ public class StageMojoTest {
 
   @Before
   public void configureStageMojo() throws IOException {
+    MockitoAnnotations.initMocks(this);
     stageMojo.stagingDirectory = tempFolder.newFolder("staging");
     stageMojo.sourceDirectory = tempFolder.newFolder("source");
   }
 
   @Test
-  public void testStandardStaging() throws Exception {
+  @Parameters({"jar", "war"})
+  public void testStandardStaging(String packaging) throws Exception {
 
     // wire up
+    stageMojo.packaging = packaging;
     when(factoryMock.standardStaging()).thenReturn(standardStagingMock);
 
     // create appengine-web.xml to mark it as standard environment
@@ -85,9 +96,11 @@ public class StageMojoTest {
   }
 
   @Test
-  public void testFlexibleStaging() throws Exception {
+  @Parameters({"jar", "war"})
+  public void testFlexibleStaging(String packaging) throws Exception {
 
     // wire up
+    stageMojo.packaging = packaging;
     when(factoryMock.flexibleStaging()).thenReturn(flexibleStagingMock);
 
     // invoke
@@ -98,4 +111,29 @@ public class StageMojoTest {
     verify(logMock).info(contains("flexible"));
   }
 
+  @Test
+  @Parameters
+  public void testRun_packagingIsNotJarOrWar(String packaging)
+      throws MojoFailureException, MojoExecutionException, IOException {
+    // wire up
+    stageMojo.stagingDirectory = mock(File.class);
+    stageMojo.packaging = packaging;
+
+    stageMojo.execute();
+    verify(stageMojo.stagingDirectory, never()).exists();
+  }
+
+  @SuppressWarnings("unused") // used for testRun_packagingIsNotJarOrWar()
+  private Object[][] parametersForTestRun_packagingIsNotJarOrWar(){
+    return new Object[][]{
+        new Object[]{ null },
+        new Object[]{ "pom" },
+        new Object[]{ "ear" },
+        new Object[]{ "rar" },
+        new Object[]{ "par" },
+        new Object[]{ "ejb" },
+        new Object[]{ "maven-plugin" },
+        new Object[]{ "eclipse-plugin" }
+    };
+  }
 }

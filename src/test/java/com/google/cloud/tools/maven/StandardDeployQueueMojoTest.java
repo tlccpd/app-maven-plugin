@@ -32,7 +32,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
-@RunWith(MockitoJUnitRunner.class)
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+
+@RunWith(JUnitParamsRunner.class)
 public class StandardDeployQueueMojoTest {
 
   private DeployQueueMojo mojo = new DeployQueueMojo();
@@ -46,8 +49,11 @@ public class StandardDeployQueueMojoTest {
   public TestRule testRule = RuleChain.outerRule(tempFolder).around(testFixture);
 
   @Test
-  public void testDeploy()
+  @Parameters({"jar", "war"})
+  public void testDeploy(String packaging)
       throws IOException, MojoFailureException, MojoExecutionException {
+    mojo.packaging = packaging;
+
     mojo.execute();
 
     verify(testFixture.getDeploymentMock()).deployQueue(mojo);
