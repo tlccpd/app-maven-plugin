@@ -29,6 +29,7 @@ import com.google.common.io.Files;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.MavenProject;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,12 +38,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -55,6 +56,9 @@ public class DeployMojoTest {
 
   @Mock
   private CloudSdkAppEngineFactory factoryMock;
+
+  @Mock
+  private MavenProject project;
 
   @Mock
   private AppEngineFlexibleStaging flexibleStagingMock;
@@ -77,6 +81,8 @@ public class DeployMojoTest {
     deployMojo.deployables = new ArrayList<>();
     deployMojo.stagingDirectory = tempFolder.newFolder("staging");
     deployMojo.sourceDirectory = tempFolder.newFolder("source");
+    deployMojo.mavenProject = project;
+    when(project.getProperties()).thenReturn(new Properties());
   }
 
   @Test
@@ -85,7 +91,7 @@ public class DeployMojoTest {
       throws IOException, MojoFailureException, MojoExecutionException {
 
     // wire up
-    deployMojo.packaging = packaging;
+    when(project.getPackaging()).thenReturn(packaging);
     when(factoryMock.standardStaging()).thenReturn(standardStagingMock);
     when(factoryMock.deployment()).thenReturn(deploymentMock);
 
@@ -108,7 +114,7 @@ public class DeployMojoTest {
   public void testDeployFlexible(String packaging) throws Exception {
 
     // wire up
-    deployMojo.packaging = packaging;
+    when(project.getPackaging()).thenReturn(packaging);
     when(factoryMock.flexibleStaging()).thenReturn(flexibleStagingMock);
     when(factoryMock.deployment()).thenReturn(deploymentMock);
 
@@ -127,9 +133,9 @@ public class DeployMojoTest {
   public void testDeploySpecifiedAppYaml(String packaging) throws Exception {
     File appYaml = new File("myApp.yaml");
     deployMojo.deployables = Arrays.asList(appYaml);
-    deployMojo.packaging = packaging;
     
     // wire up
+    when(project.getPackaging()).thenReturn(packaging);
     when(factoryMock.flexibleStaging()).thenReturn(flexibleStagingMock);
     when(factoryMock.deployment()).thenReturn(deploymentMock);
 

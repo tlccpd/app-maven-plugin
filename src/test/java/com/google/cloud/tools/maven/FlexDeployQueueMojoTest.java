@@ -17,6 +17,7 @@
 package com.google.cloud.tools.maven;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.google.cloud.tools.maven.util.SingleYamlFlexibleDeployTestHelper;
 
@@ -28,9 +29,6 @@ import org.junit.rules.RuleChain;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import java.io.IOException;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -52,7 +50,7 @@ public class FlexDeployQueueMojoTest {
   @Parameters({"jar", "war"})
   public void testDeployFlexible(String packaging)
       throws MojoExecutionException, MojoFailureException {
-    mojo.packaging = packaging;
+    when(mojo.mavenProject.getPackaging()).thenReturn(packaging);
 
     mojo.execute();
 

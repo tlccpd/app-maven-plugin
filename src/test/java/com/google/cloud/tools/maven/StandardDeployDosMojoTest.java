@@ -17,8 +17,9 @@
 package com.google.cloud.tools.maven;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import com.google.cloud.tools.maven.util.SingleYamlStandradDeployTestHelper;
+import com.google.cloud.tools.maven.util.SingleYamlStandardDeployTestHelper;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -28,7 +29,6 @@ import org.junit.rules.RuleChain;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
@@ -42,8 +42,8 @@ public class StandardDeployDosMojoTest {
 
   private TemporaryFolder tempFolder = new TemporaryFolder();
 
-  private SingleYamlStandradDeployTestHelper<DeployDosMojo> testFixture =
-      new SingleYamlStandradDeployTestHelper<>(mojo, tempFolder);
+  private SingleYamlStandardDeployTestHelper<DeployDosMojo> testFixture =
+      new SingleYamlStandardDeployTestHelper<>(mojo, tempFolder);
 
   @Rule
   public TestRule testRule = RuleChain.outerRule(tempFolder).around(testFixture);
@@ -52,7 +52,7 @@ public class StandardDeployDosMojoTest {
   @Parameters({"jar", "war"})
   public void testDeploy(String packaging)
       throws IOException, MojoFailureException, MojoExecutionException {
-    mojo.packaging = packaging;
+    when(mojo.mavenProject.getPackaging()).thenReturn(packaging);
 
     mojo.execute();
 

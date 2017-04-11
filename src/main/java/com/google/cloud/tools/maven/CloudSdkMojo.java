@@ -43,9 +43,6 @@ public abstract class CloudSdkMojo extends AbstractMojo {
   @Parameter(defaultValue = "${project}", readonly = true)
   protected MavenProject mavenProject;
 
-  @Parameter(property = "packaging")
-  protected String packaging;
-
   private AppEngineFactory factory = new CloudSdkAppEngineFactory(this);
 
   public String getArtifactId() {
@@ -94,5 +91,9 @@ public abstract class CloudSdkMojo extends AbstractMojo {
       }
     }
     return javaVersion;
+  }
+
+  protected String getPackaging() {
+    return mavenProject.getPackaging();
   }
 }

@@ -30,6 +30,7 @@ import com.google.common.io.Files;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.MavenProject;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,11 +38,11 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -54,6 +55,9 @@ public class StageMojoTest {
 
   @Mock
   private CloudSdkAppEngineFactory factoryMock;
+
+  @Mock
+  private MavenProject mavenProject;
 
   @Mock
   private AppEngineFlexibleStaging flexibleStagingMock;
@@ -72,6 +76,7 @@ public class StageMojoTest {
     MockitoAnnotations.initMocks(this);
     stageMojo.stagingDirectory = tempFolder.newFolder("staging");
     stageMojo.sourceDirectory = tempFolder.newFolder("source");
+    when(mavenProject.getProperties()).thenReturn(new Properties());
   }
 
   @Test
@@ -79,7 +84,7 @@ public class StageMojoTest {
   public void testStandardStaging(String packaging) throws Exception {
 
     // wire up
-    stageMojo.packaging = packaging;
+    when(stageMojo.mavenProject.getPackaging()).thenReturn(packaging);
     when(factoryMock.standardStaging()).thenReturn(standardStagingMock);
 
     // create appengine-web.xml to mark it as standard environment
@@ -100,7 +105,7 @@ public class StageMojoTest {
   public void testFlexibleStaging(String packaging) throws Exception {
 
     // wire up
-    stageMojo.packaging = packaging;
+    when(stageMojo.mavenProject.getPackaging()).thenReturn(packaging);
     when(factoryMock.flexibleStaging()).thenReturn(flexibleStagingMock);
 
     // invoke
@@ -117,7 +122,7 @@ public class StageMojoTest {
       throws MojoFailureException, MojoExecutionException, IOException {
     // wire up
     stageMojo.stagingDirectory = mock(File.class);
-    stageMojo.packaging = packaging;
+    when(stageMojo.mavenProject.getPackaging()).thenReturn(packaging);
 
     stageMojo.execute();
     verify(stageMojo.stagingDirectory, never()).exists();
