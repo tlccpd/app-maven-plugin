@@ -43,7 +43,7 @@ public abstract class CloudSdkMojo extends AbstractMojo {
   @Parameter(defaultValue = "${project}", readonly = true)
   protected MavenProject mavenProject;
 
-  @Parameter( property = "packaging" )
+  @Parameter(property = "packaging")
   protected String packaging;
 
   private AppEngineFactory factory = new CloudSdkAppEngineFactory(this);
@@ -94,9 +94,5 @@ public abstract class CloudSdkMojo extends AbstractMojo {
       }
     }
     return javaVersion;
-  }
-
-  protected Plugin getPlugin() {
-    return mavenProject.getPlugin("com.google.cloud.tools:appengine-maven-plugin");
   }
 }

@@ -192,6 +192,7 @@ public class StageMojo extends CloudSdkMojo implements StageStandardConfiguratio
   public void execute() throws MojoExecutionException, MojoFailureException {
     if (!"war".equals(packaging) && !"jar".equals(packaging)) {
       // https://github.com/GoogleCloudPlatform/app-maven-plugin/issues/85
+      getLog().info("Staging is only executed for war and jar modules.");
       return;
     }
     // delete staging directory if it exists
