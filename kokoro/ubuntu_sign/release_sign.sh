@@ -5,7 +5,8 @@ set -e
 # Display commands being run.
 set -x
 
-mkdir -p signed && chmod 777 signed
+cd $KOKORO_GFILE_DIR
+mkdir signed && chmod 777 signed
 
 # find the latest directory under prod/app-maven-plugin/gcp_ubuntu/release/
 LAST_BUILD=$(ls prod/app-maven-plugin/gcp_ubuntu/release/ | sort -rV | head -1)
