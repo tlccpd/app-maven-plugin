@@ -23,5 +23,6 @@ do
   then echo "Signed $filename"
   else
     echo "Could not sign $filename"
+    exit 1
   fi
 done
