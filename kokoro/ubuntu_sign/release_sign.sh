@@ -29,5 +29,7 @@ done
 ls -laR
 
 # reevaluate to add the signature files too
-FILES=$(find `pwd`/prod/app-maven-plugin/gcp_ubuntu/release/${LAST_BUILD}/* -type f)
-jar -cvf bundle.jar $FILES
+SIGNED_ARTIFACT_FILE=$(find `pwd`/prod/app-maven-plugin/gcp_ubuntu/release/${LAST_BUILD}/* -type f | head -1)
+SIGNED_ARTIFACT_DIR=$(dirname ${SIGNED_ARTIFACT_FILE})
+cd $SIGNED_ARTIFACT_DIR
+jar -cvf bundle.jar *
