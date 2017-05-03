@@ -26,4 +26,4 @@ do
   fi
 done
 
-ls -lart
+ls -laR
