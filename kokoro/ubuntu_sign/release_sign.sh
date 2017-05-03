@@ -19,7 +19,6 @@ do
   filename=$(basename "$f")
   if /escalated_sign/escalated_sign.py -j /escalated_sign_jobs -t linux_gpg_sign \
     $f
-    "signed/$filename"
   then echo "Signed $filename"
   else
     echo "Could not sign $filename"
