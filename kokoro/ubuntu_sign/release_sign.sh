@@ -27,3 +27,7 @@ do
 done
 
 ls -laR
+
+# reevaluate to add the signature files too
+FILES=$(find `pwd`/prod/app-maven-plugin/gcp_ubuntu/release/${LAST_BUILD}/* -type f)
+jar -cvf bundle.jar $FILES
