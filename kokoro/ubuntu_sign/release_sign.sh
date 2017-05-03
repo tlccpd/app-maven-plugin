@@ -17,8 +17,9 @@ for f in $FILES
 do
   echo "Processing $f file..."
   filename=$(basename "$f")
+  mv $f signed/$filename
   if /escalated_sign/escalated_sign.py -j /escalated_sign_jobs -t linux_gpg_sign \
-    $f
+    signed/$filename
   then echo "Signed $filename"
   else
     echo "Could not sign $filename"
@@ -29,7 +30,5 @@ done
 ls -laR
 
 # reevaluate to add the signature files too
-SIGNED_ARTIFACT_FILE=$(find `pwd`/prod/app-maven-plugin/gcp_ubuntu/release/${LAST_BUILD}/* -type f | head -1)
-SIGNED_ARTIFACT_DIR=$(dirname ${SIGNED_ARTIFACT_FILE})
-cd $SIGNED_ARTIFACT_DIR
+cd signed
 jar -cvf bundle.jar *
