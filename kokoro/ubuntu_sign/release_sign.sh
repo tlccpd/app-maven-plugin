@@ -19,7 +19,7 @@ do
   filename=$(basename "$f")
   mv $f signed/$filename
   if /escalated_sign/escalated_sign.py -j /escalated_sign_jobs -t linux_gpg_sign \
-    signed/$filename
+    `pwd`/signed/$filename
   then echo "Signed $filename"
   else
     echo "Could not sign $filename"
