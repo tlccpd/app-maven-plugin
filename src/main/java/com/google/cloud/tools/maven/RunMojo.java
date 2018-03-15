@@ -278,6 +278,13 @@ public class RunMojo extends CloudSdkMojo implements RunConfiguration {
   )
   protected List<String> additionalArguments;
 
+  /**
+   * The Google Cloud Platform project name to use for this invocation. If omitted then the current
+   * project is assumed.
+   */
+  @Parameter(alias = "deploy.project", property = "app.deploy.project")
+  protected String project;
+
   // RunAsyncMojo should override #runServer(version) so that other configuration changing code
   // shared between these classes is executed
   @Override
@@ -493,5 +500,10 @@ public class RunMojo extends CloudSdkMojo implements RunConfiguration {
   @Override
   public List<String> getAdditionalArguments() {
     return additionalArguments;
+  }
+
+  @Override
+  public String getProject() {
+    return project;
   }
 }
