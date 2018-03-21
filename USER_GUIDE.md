@@ -75,10 +75,10 @@ The cloud sdk will be installed/updated/verified depending on which parameters a
 
 | Parameters Specified   | Action |
 | ---------------------- | ------ |
-| None                   | Latest version of the cloud sdk is downloaded and installed. |
-| Both parameters        | Current cloud sdk installation at `cloudSdkHome` is verified. |
+| None                   | Latest version of the Cloud SDK is downloaded and installed. |
+| Both parameters        | Current Cloud SDK installation at `cloudSdkHome` is verified. |
 | `cloudSdkHome` only    | No verification. |
-| `cloudSdkVersion` only | Cloud sdk at specified version is downloaded and installed. |
+| `cloudSdkVersion` only | Cloud SDK at specified version is downloaded and installed. |
 
 The cloud sdk is installed in `$USER_HOME/.cache/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
 (`%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows). 
@@ -313,10 +313,10 @@ The cloud sdk will be installed/updated/verified depending on which parameters a
 
 | Parameters Specified   | Action |
 | ---------------------- | ------ |
-| None                   | Latest version of the cloud sdk is downloaded and installed. |
-| Both parameters        | Current cloud sdk installation at `cloudSdkHome` is verified. |
+| None                   | Latest version of the Cloud SDK is downloaded and installed. |
+| Both parameters        | Current Cloud SDK installation at `cloudSdkHome` is verified. |
 | `cloudSdkHome` only    | No verification. |
-| `cloudSdkVersion` only | Cloud sdk at specified version is downloaded and installed. |
+| `cloudSdkVersion` only | Cloud SDK at specified version is downloaded and installed. |
 
 The cloud sdk is installed in `$USER_HOME/.cache/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
 (`%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows). 
