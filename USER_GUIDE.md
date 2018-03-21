@@ -303,9 +303,24 @@ If you wish to customize your configuration, the plugin can be configured using 
 
 ##### Cloud SDK configuration
 
-| Parameter      | Description |
-| -------------- | ----------- |
-| `cloudSdkPath` | Location of the Cloud SDK, the plugin will try to find it if none is specified here. |
+| Parameter          | Description |
+| ------------------ | ----------- |
+| ~~`cloudSdkPath`~~ | Deprecated in favor if `cloudSdkHome` |
+| `cloudSdkHome`     | Location of the Cloud SDK. |
+| `cloudSdkVersion`  | Desired version of the Cloud SDK. (e.g. "192.0.0") |
+
+The cloud sdk will be installed/updated/verified depending on which parameters are configured:
+
+| Parameters Specified   | Action |
+| ---------------------- | ------ |
+| None                   | Latest version of the cloud sdk is downloaded and installed. |
+| Both parameters        | Current cloud sdk installation at `cloudSdkHome` is verified. |
+| `cloudSdkHome` only    | No verification. |
+| `cloudSdkVersion` only | Cloud sdk at specified version is downloaded and installed. |
+
+The cloud sdk is installed in `$USER_HOME/.cache/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
+(`%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows). 
+The cloud sdk installation/verification occurs automatically before running any appengine goals.
 
 
 ##### Stage
