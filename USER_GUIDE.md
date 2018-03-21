@@ -81,7 +81,8 @@ The Cloud SDK will be installed/updated/verified depending on which parameters a
 | `cloudSdkVersion` only | Cloud SDK at specified version is downloaded and installed. |
 
 The Cloud SDK is installed in `$USER_HOME/.cache/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
-(`%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows). 
+on Linux, `$USER_HOME/Library/Application Support/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
+on OSX, and `%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows. 
 The Cloud SDK installation/verification occurs automatically before running any appengine goals.
 
 ##### Run configuration
@@ -319,7 +320,8 @@ The Cloud SDK will be installed/updated/verified depending on which parameters a
 | `cloudSdkVersion` only | Cloud SDK at specified version is downloaded and installed. |
 
 The Cloud SDK is installed in `$USER_HOME/.cache/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
-(`%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows). 
+on Linux, `$USER_HOME/Library/Application Support/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk`
+on OSX, and `%LOCALAPPDATA%/google-cloud-tools-java/managed-cloud-sdk/<version>/google-cloud-sdk` on Windows. 
 The Cloud SDK installation/verification occurs automatically before running any appengine goals.
 
 
