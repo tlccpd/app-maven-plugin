@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-## 1.3.3
+## 2.0.0-rc1
 ### Added
 * New `cloudSdkVersion` parameter to specify desired Cloud SDK version
 * Cloud SDK and java app-engine components are automatically installed ([#247](../../issues/247)) or
