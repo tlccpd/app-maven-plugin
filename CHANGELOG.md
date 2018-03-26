@@ -17,6 +17,7 @@ verified ([#248](../../issues/248)), depending on configuration of `cloudSdkHome
 ### Changed
 * Upgrade App Engine Plugins Core dependency to 0.5.0
 * `cloudSdkPath` is deprecated in favor of `cloudSdkHome` ([#257](../../issues/257))
+* Remove deprecated `appYamls` parameter
 
 ## 1.3.2
 ### Added
