@@ -48,6 +48,7 @@ For App Engine standard, the plugin exposes the following goals :
 | `deployDos`      | Deploy dos configuration. |
 | `deployIndex`    | Deploy datastore index configuration. |
 | `deployQueue`    | Deploy queue configuration. |
+| `deployAll`      | Deploy the application and all of its configuration files at once. |
 
 ### Configuration
 Once you've [initialized](https://cloud.google.com/sdk/docs/initializing) `gcloud` you can run and deploy
@@ -172,6 +173,8 @@ You can now deploy the cron/dos/etc. configuration files separately using the ne
 * `deployIndex`
 * `deployQueue`
 
+You may also use the `deployAll` goal to deploy the application and all valid configuration files at once.
+
 _For GAE Flexible projects_ The deployment source directory can be overridden by setting the `appEngineDirectory` parameter in the deploy configuration.
 
 For standard it defaults to `<stagingDirectory>/WEB-INF/appengine-generated` (and `stagingDirectory`
@@ -287,6 +290,7 @@ For App Engine flexible, the plugin exposes the following goals:
 | `deployDos`      | Deploy dos configuration. |
 | `deployIndex`    | Deploy datastore index configuration. |
 | `deployQueue`    | Deploy queue configuration. |
+| `deployAll`      | Deploy the application and all of its configuration files at once. |
 
 Once you've [initialized](https://cloud.google.com/sdk/docs/initializing) `gcloud` you can run and deploy
 your application using the defaults provided by the plugin.
