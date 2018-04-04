@@ -31,11 +31,12 @@ For App Engine standard, the plugin exposes the following goals :
 
 #### Local Run
 
-| Goal    | Description |
-| ------- | ----------- |
-| `run`   | Run the application locally. |
-| `start` | Start the application in the background. |
-| `stop`  | Stop a running application. |
+| Goal               | Description |
+| ------------------ | ----------- |
+| `run`              | Run the application locally. |
+| `start`            | Start the application in the background. |
+| `stop`             | Stop a running application. |
+| `genRepoInfoFiles` | Generates repository information files for the Stackdriver Debugger. |
 
 #### Deployment
 
@@ -268,6 +269,25 @@ You can pass additional arguments directly to the Dev App Server:
     <additionalArgument>--ARG2</additionalArgument>
   </additionalArguments>
 </configuration>
+```
+
+### How can I automatically run the `appengine:genRepoInfoFile` goal during the Maven build workflow?
+ 
+You can add the following to your plugin executions section:
+
+```XML
+<plugin>
+  ...
+  <executions>
+    <execution>
+      <phase>prepare-package</phase>
+      <goals>
+        <goal>genRepoInfoFile</goal>
+      </goals>
+    </execution>
+  </executions>
+  ...
+</plugin>
 ```
 
 ---
