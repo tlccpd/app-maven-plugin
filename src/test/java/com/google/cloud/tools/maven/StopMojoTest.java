@@ -20,8 +20,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.google.cloud.tools.appengine.api.AppEngineException;
 import com.google.cloud.tools.appengine.api.devserver.AppEngineDevServer;
-import com.google.cloud.tools.maven.AppEngineFactory.SupportedDevServerVersion;
+import com.google.cloud.tools.maven.CloudSdkAppEngineFactory.SupportedDevServerVersion;
 import java.io.IOException;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -70,7 +71,7 @@ public class StopMojoTest {
   @Test
   @Parameters({"1,V1", "2-alpha,V2ALPHA"})
   public void testStop(String version, SupportedDevServerVersion mockVersion)
-      throws MojoFailureException, MojoExecutionException {
+      throws MojoFailureException, MojoExecutionException, AppEngineException {
 
     // wire up
     stopMojo.devserverVersion = version;

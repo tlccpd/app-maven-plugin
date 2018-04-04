@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Google LLC. All Rights Reserved.
+ * Copyright 2018 Google LLC. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,29 @@
 package com.google.cloud.tools.maven;
 
 import com.google.cloud.tools.appengine.api.AppEngineException;
-import com.google.cloud.tools.appengine.api.deploy.AppEngineDeployment;
-import com.google.cloud.tools.appengine.api.deploy.DeployProjectConfigurationConfiguration;
-import org.apache.maven.plugins.annotations.Execute;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
+import com.google.cloud.tools.appengine.cloudsdk.CloudSdk;
+import com.google.cloud.tools.appengine.cloudsdk.CloudSdkAuth;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
-/** Stage and deploy queue.yaml to Google App Engine standard or flexible environment. */
-@Mojo(name = "deployQueue")
-@Execute(phase = LifecyclePhase.PACKAGE)
-public class DeployQueueMojo extends AbstractSingleYamlDeployMojo {
+@Mojo(name = "cloudSdkLogin")
+public class CloudSdkLoginMojo extends CloudSdkMojo {
 
-  protected void doDeploy(
-      AppEngineDeployment appEngineDeployment,
-      DeployProjectConfigurationConfiguration configuration) {
+  @Override
+  public void execute() throws MojoExecutionException, MojoFailureException {
     try {
-      appEngineDeployment.deployQueue(this);
+      CloudSdk sdk = getAppEngineFactory().defaultCloudSdkBuilder().build();
+      new CloudSdkAuth(sdk).login();
     } catch (AppEngineException ex) {
       throw new RuntimeException(ex);
+    }
+
+    if (getServiceAccountKeyFile() != null) {
+      getLog()
+          .warn(
+              "serviceAccountKeyFile is configured and will be used instead of Cloud SDK auth "
+                  + "state.");
     }
   }
 }
