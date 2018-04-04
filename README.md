@@ -47,8 +47,15 @@ You can now run commands like `mvn appengine:deploy` in the root folder of your 
 
 Goal | Description
 --- | ---
+appengine:cloudSdkLogin|Login and set the Cloud SDK common configuration user.
 appengine:stage|Generates an application directory for deployment.
 appengine:deploy|Stages and deploys an application to App Engine.
+appengine:deployCron|Deploy cron configuration.
+appengine:deployDispatch|Deploy dispatch configuration.
+appengine:deployDos|Deploy dos configuration.
+appengine:deployIndex|Deploy datastore index configuration.
+appengine:deployQueue|Deploy queue configuration.
+appengine:deployAll|Deploy the application with all available valid configuration.
 appengine:run|Runs the App Engine local development server. *(App Engine Standard Only)*
 appengine:start|Starts running the App Engine devserver asynchronously and then returns to the command line. When this goal runs, the behavior is the same as the run goal except that Maven continues processing goals and exits after the server is up and running. *(App Engine Standard Only)*
 appengine:stop|Stops a running App Engine web development server. *(App Engine Standard Only)*

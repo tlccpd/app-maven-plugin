@@ -42,6 +42,7 @@ For App Engine standard, the plugin exposes the following goals :
 
 | Goal             | Description |
 | ---------------- | ----------- |
+| `cloudSdkLogin`  | Login and set the Cloud SDK common configuration user. |
 | `stage`          | Stage an application for deployment. |
 | `deploy`         | Deploy an application. |
 | `deployCron`     | Deploy cron configuration. |
@@ -303,6 +304,7 @@ For App Engine flexible, the plugin exposes the following goals:
 
 | Goal             | Description |
 | ---------------- | ----------- |
+| `cloudSdkLogin`  | Login and set the Cloud SDK common configuration user. |
 | `stage`          | Stage an application for deployment. |
 | `deploy`         | Deploy an application. |
 | `deployCron`     | Deploy cron configuration. |
