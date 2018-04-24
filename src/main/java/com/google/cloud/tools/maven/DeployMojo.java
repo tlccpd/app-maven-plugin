@@ -16,7 +16,6 @@
 
 package com.google.cloud.tools.maven;
 
-import com.google.cloud.tools.appengine.api.AppEngineException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Execute;
@@ -30,22 +29,6 @@ public class DeployMojo extends AbstractDeployMojo {
 
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
-    if (!"war".equals(getPackaging()) && !"jar".equals(getPackaging())) {
-      // https://github.com/GoogleCloudPlatform/app-maven-plugin/issues/85
-      getLog().info("Deploy is only executed for war and jar modules.");
-      return;
-    }
-    // execute stage
-    super.execute();
-
-    if (deployables.isEmpty()) {
-      deployables.add(stagingDirectory);
-    }
-
-    try {
-      getAppEngineFactory().deployment().deploy(this);
-    } catch (AppEngineException ex) {
-      throw new RuntimeException(ex);
-    }
+    AppEngineDeployer.Factory.newDeployer(this).deploy();
   }
 }

@@ -17,11 +17,14 @@
 package com.google.cloud.tools.maven;
 
 import com.google.cloud.tools.appengine.api.deploy.DeployConfiguration;
+import com.google.cloud.tools.appengine.api.deploy.DeployProjectConfigurationConfiguration;
+import com.google.common.annotations.VisibleForTesting;
 import java.io.File;
 import java.util.List;
 import org.apache.maven.plugins.annotations.Parameter;
 
-public abstract class AbstractDeployMojo extends StageMojo implements DeployConfiguration {
+public abstract class AbstractDeployMojo extends StageMojo
+    implements DeployConfiguration, DeployProjectConfigurationConfiguration {
   /**
    * The yaml files for the services or configurations you want to deploy. If not given, defaults to
    * app.yaml in the staging directory. If that is not found, attempts to automatically generate
@@ -64,10 +67,7 @@ public abstract class AbstractDeployMojo extends StageMojo implements DeployConf
   @Parameter(alias = "deploy.version", property = "app.deploy.version")
   protected String version;
 
-  /**
-   * The Google Cloud Platform project name to use for this invocation. If omitted then the current
-   * project is assumed.
-   */
+  /** The Google Cloud Platform project name to use for this invocation. */
   @Parameter(alias = "deploy.project", property = "app.deploy.project")
   protected String project;
 
@@ -109,5 +109,10 @@ public abstract class AbstractDeployMojo extends StageMojo implements DeployConf
   @Override
   public String getProject() {
     return project;
+  }
+
+  @VisibleForTesting
+  public void setProject(String project) {
+    this.project = project;
   }
 }
