@@ -70,7 +70,6 @@ If you wish to customize your configuration, the plugin can be configured using 
 
 | Parameter          | Description |
 | ------------------ | ----------- |
-| ~~`cloudSdkPath`~~ | Deprecated in favor if `cloudSdkHome` |
 | `cloudSdkHome`     | Location of the Cloud SDK. |
 | `cloudSdkVersion`  | Desired version of the Cloud SDK. (e.g. "192.0.0") |
 
@@ -331,7 +330,6 @@ If you wish to customize your configuration, the plugin can be configured using 
 
 | Parameter          | Description |
 | ------------------ | ----------- |
-| ~~`cloudSdkPath`~~ | Deprecated in favor if `cloudSdkHome` |
 | `cloudSdkHome`     | Location of the Cloud SDK. |
 | `cloudSdkVersion`  | Desired version of the Cloud SDK. (e.g. "192.0.0") |
 
