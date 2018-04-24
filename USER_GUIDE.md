@@ -156,11 +156,13 @@ The `deploy` configuration has the following parameters:
 | --------------------- | ----------- |
 | `bucket`              | The Google Cloud Storage bucket used to stage files associated with the deployment. |
 | `deployables`         | The YAML files for the services or configurations you want to deploy. |
-| `project`             | The Google Cloud Project target for this deployment. |
+| `project`             | The Google Cloud Project target for this deployment. This parameter may also be specified in `appengine-web.xml` using the `<application>` tag. |
 | `promote`             | Promote the deployed version to receive all traffic. |
 | `server`              | The App Engine server to connect to. Typically, you do not need to change this value. |
 | `stopPreviousVersion` | Stop the previously running version when deploying a new version that receives all traffic. |
-| `version`             | The version of the app that will be created or replaced by this deployment. If you do not specify a version, one will be generated for you by the Cloud SDK. |
+| `version`             | The version of the app that will be created or replaced by this deployment. This parameter may also be specified in `appengine-web.xml` using the `<version>` tag. If you do not specify a version, one will be generated for you by the Cloud SDK. |
+
+To use parameters defined in `appengine-web.xml`, you must set the system property `deploy.read.appengine.web.xml=true`.
 
 ---
 
